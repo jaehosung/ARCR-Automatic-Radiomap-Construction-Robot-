@@ -5,19 +5,16 @@
 #define NUM 5
 
 float angleArr[NUM][2] = {{36.367609,127.355281},{36.367717,127.355624},{36.367898,127.355511},{36.36782,127.355173},{36.367609,127.355281}};
-float pos_diffArr[NUM][3];
-float posArr[NUM][3];
-float diffAngleZero[NUM][2];
-float diffAnglePrev[NUM][2];
 
 float diffDistanceConti[NUM];
 float diffDistancePrev[NUM];
-float diffAngle[NUM];
+float diffAngle[NUM]={0,};
 
 //function Declaration
 void absoulteMethod();
 void angleDiffMethod();
 float degToRad(float deg);
+float radToDeg(float rad);
 
 int main(){
     angleDiffMethod();
@@ -42,14 +39,7 @@ void angleDiffMethod(){
         }
         printf("\n");
     }
-// Get the value of diff angle
-    for(i=0;i<NUM;i++){
-        for(j=0;j<2;j++){
-            diffAngleZero[i][j]=angleArr[i][j]-angleArr[0][j];
-            if(i>0)diffAnglePrev[i][j]=angleArr[i][j]-angleArr[i-1][j];else diffAnglePrev[i][j]=0;
-        }
-    }
-//Get the distance
+//diffDistancePrev[i] refers 'from i to i+1'
     for(i=0;i<NUM-1;i++){
         float pi1 = angleArr[i][0];
         float pi2 = angleArr[i+1][0];
@@ -60,7 +50,7 @@ void angleDiffMethod(){
         diffDistancePrev[i]=R_EARTH*c;
         printf("%d   %f\n",i,diffDistancePrev[i]);
     }
-//diffDistanceConti[i] refers from i to i+2
+//diffDistanceConti[i] refers 'from i to i+2'
     for(i=0;i<NUM-2;i++){
         float pi1 = angleArr[i][0];
         float pi2 = angleArr[i+2][0];
@@ -72,48 +62,17 @@ void angleDiffMethod(){
         printf("%d   %f\n",i,diffDistanceConti[i]);
     }
 //anglediff  means the vector difference between two pathes,and It measured  the clockwise from the origin Vector
-    for(i=0;i<NUM-1;i++){
-
+    for(i=1;i<NUM-1;i++){
+        float a = diffDistanceConti[i-1];
+        float b = diffDistancePrev[i-1];
+        float c = diffDistancePrev[i];
+        diffAngle[i]=radToDeg(acos((b*b+c*c-a*a)/(2*b*c)));
+        printf("%f\n",diffAngle[i]);
     }
 }
 
-void absolutemethod(){
-    int i,j;
-// from this reasonalbe data
-    for(i=0;i<num;i++){
-        for(j=0;j<2;j++){
-            printf("%f\t",anglearr[i][j]);
-            anglearr[i][j] = anglearr[i][j]*m_pi/180;
-            printf("%f\t",anglearr[i][j]);
-        }
-        printf("\n");
-        posarr[i][0]=r_earth*sin(m_pi/2-anglearr[i][0])*cos(anglearr[i][1]);
-        posarr[i][1]=r_earth*sin(m_pi/2-anglearr[i][0])*sin(anglearr[i][1]);
-        posarr[i][2]=r_earth*cos(m_pi/2-anglearr[i][0]);
-    }
-
-//difference from first value
-    for(i=0;i<num;i++){
-        for(j=0;j<3;j++){
-            pos_diffarr[i][j]=posarr[i][j]-posarr[0][j];
-        }
-    }
-
-    for(i=0;i<num;i++){
-        for(j=0;j<3;j++){
-            printf("%.10f",posarr[i][j]);
-            printf("\t");
-        }
-        printf("\n");
-    }
-    printf("difference\n");
-    for(i=0;i<num;i++){
-        for(j=0;j<3;j++){
-            printf("%.10f",pos_diffarr[i][j]);
-            printf("\t");
-        }
-        printf("\n");
-    }
+float radToDeg(float rad){
+    return (rad*180/M_PI);
 }
 
 float degToRad(float deg){
