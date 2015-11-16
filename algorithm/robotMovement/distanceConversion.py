@@ -1,9 +1,10 @@
 from math import *
-NUM = 5
 angleArr = [[36.367609,127.355281],[36.367717,127.355624],[36.367898,127.355511],[36.36782,127.355173],[36.367609,127.355281]]
-diffDistanceConti = [0 for i in range(NUM)];
-diffDistancePrev = [0 for i in range(NUM)];
-diffAngle = [0 for i in range(NUM)];
+NUM = len(angleArr)
+diffDistanceConti = [0 for i in range(NUM)]
+diffDistancePrev = [0 for i in range(NUM)]
+diffAngle = [0 for i in range(NUM)]
+returnArr = [ [0 for i in range(2)] for j in range(NUM-1)]
 
 R_EARTH = 6371000
 
@@ -77,5 +78,11 @@ def printValue() :
     for i in range(0,NUM-1) :
         print "trial%d\tdistance : %f\tangle %f"  % (i+1,diffDistancePrev[i],diffAngle[i])
 
+def returnValue() : 
+    for i in range(0,NUM-1) :
+        returnArr[i][0]=diffDistancePrev[i]
+        returnArr[i][1]=diffAngle[i]
+    return returnArr
+
 angleDiffMethod()
-printValue()
+print(returnValue())
