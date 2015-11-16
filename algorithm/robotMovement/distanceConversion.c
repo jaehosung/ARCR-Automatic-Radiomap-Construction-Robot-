@@ -6,13 +6,13 @@
 #define NUM 5
 
 /*case1*/
-//float angleArr[NUM][2] = {{36.367609,127.355281},{36.367717,127.355624},{36.367898,127.355511},{36.36782,127.355173},{36.367609,127.355281}};
+float angleArr[NUM][2] = {{36.367609,127.355281},{36.367717,127.355624},{36.367898,127.355511},{36.36782,127.355173},{36.367609,127.355281}};
 
 /*case2*/
 //float angleArr[NUM][2] = {{36,0},{37,0},{38,0},{37,0},{36,0}};
 
 /*case3*/
-float angleArr[NUM][2] = {{36,127},{36,128},{37,128},{37,127},{36,127}};
+//float angleArr[NUM][2] = {{36,127},{36,128},{37,128},{37,127},{36,127}};
 float diffDistanceConti[NUM];
 float diffDistancePrev[NUM];
 float diffAngle[NUM]={0,};
@@ -73,6 +73,7 @@ void angleDiffMethod(){
 }
 //Print the value of distance and angles
 void printValue(){
+    int i,j;
     for(i=0;i<NUM-1; i++){
         printf("trial%d\t distance : %.2f \t angle : %.2f\n",i+1,diffDistancePrev[i],diffAngle[i]);
     }
