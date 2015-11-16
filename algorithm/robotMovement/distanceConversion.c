@@ -18,14 +18,15 @@ float diffDistancePrev[NUM];
 float diffAngle[NUM]={0,};
 
 //function Declaration
-void absoulteMethod();
 void angleDiffMethod();
 float degToRad(float deg);
 float radToDeg(float rad);
 int addSign(int i);
+void printValue();
 
 int main(){
     angleDiffMethod();
+    printValue();
     return 0;
 }
 
@@ -69,7 +70,9 @@ void angleDiffMethod(){
 //add degree of Sign 'acos (-1 to 1) (0 to PI)'
         diffAngle[i]=(180-radToDeg(acos(cos)))*addSign(i);
     }
+}
 //Print the value of distance and angles
+void printValue(){
     for(i=0;i<NUM-1; i++){
         printf("trial%d\t distance : %.2f \t angle : %.2f\n",i+1,diffDistancePrev[i],diffAngle[i]);
     }
