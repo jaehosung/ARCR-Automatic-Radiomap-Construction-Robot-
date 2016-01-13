@@ -1,0 +1,6 @@
+import pyandroidaccessory
+
+def received_data():
+    return [[0.5,0],[0.5,90],[0.5,-90]]
+
+
